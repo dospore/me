@@ -49,7 +49,7 @@ impl Component for App {
                 <div>
                     {"Mostly dos a little bit of mushroom"}
                 </div>
-                <Lines start={200} />
+                <Lines start={250} />
             </main>
         }
     }
