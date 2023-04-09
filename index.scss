@@ -26,7 +26,6 @@ main {
   font-family: sans-serif;
 }
 
-
 .pronounce {
   font-family: Helvetica;
   font-size: 0.8rem;
@@ -42,41 +41,40 @@ main {
   color: green;
 }
 
-.o {
-}
+.nav {
+    font-size: 14px;
+    color: gray;
 
-.s {
+    & .link a {
+        text-decoration: none;
+    }
 
-
-}
-
-.p {
-
-}
-
-.o2 {
-
-}
-
-.r {
-
-}
-
-.e {
-
+    & .seperator {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
 }
 
 .logo {
   height: 20em;
 }
 
-.heart:after {
-  content: "❤️";
-
-  font-size: 1.75em;
-}
-
 h1 + .subtitle {
   display: block;
   margin-top: -1em;
+}
+
+
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip-trigger {
+
+}
+
+.line {
+    position: absolute;
+    opacity: 0.3;
+    background: green;
 }
