@@ -1,57 +1,48 @@
 use yew::prelude::*;
-use tooltip::Tooltip;
-use lines:: Lines;
+use yew_router::prelude::*;
 
-mod tooltip;
-mod lines;
 pub mod utils;
 
-pub enum Msg {
+mod pages;
+use pages::{
+    collection::Collection,
+    home::Home,
+};
+
+pub mod components;
+use components::{
+    header::Header,
+};
+
+#[derive(Debug, Clone, Copy, PartialEq, Routable)]
+enum Route {
+    #[at("/")]
+    Home,
+    #[at("/collection")]
+    Collection,
+    #[not_found]
+    #[at("/404")]
+    NotFound,
 }
 
-pub struct App {
-}
-
-impl Component for App {
-    type Message = Msg;
-    type Properties = ();
-
-
-    fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-        }
+fn switch(routes: Route) -> Html {
+    match routes {
+        Route::Home => html! { <Home /> },
+        Route::Collection => html! {
+            <Collection />
+        },
+        Route::NotFound => html! { <h1>{ "404" }</h1> },
     }
+}
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
 
-        html! {
-            <main>
-                <div class="header">
-                    <div class="letters">
-                        <span class="d">{"d"}</span>
-                        <span class="o">{"ospore"}</span>
-                        <span class="pronounce">{"(dos-spore)"}</span>
-                    </div>
-                    // <div class="nav">
-                        // <span class="link">
-                            // <Tooltip>
-                                // <div class="box">
-                                    // {"Hover me please"}
-                                // </div>
-                            // </Tooltip>
-                        // </span>
-                        // <span class="seperator">{"|"}</span>
-                        // <span class="link">
-                            // <a href="/projects">{"/projects"}</a>
-                        // </span>
-                    // </div>
-                </div>
-                <div>
-                    {"Mostly dos a little bit of mushroom"}
-                </div>
-                <Lines start={250} />
-            </main>
-        }
+#[function_component(App)]
+fn app() -> Html {
+    html! {
+        <BrowserRouter>
+            <Header />
+            <Switch <Route> render={switch} />
+        </BrowserRouter>
     }
 }
 

@@ -1,14 +1,12 @@
 use gloo::timers::callback::Interval;
-use std::collections::LinkedList;
-use gloo_console::{log, externs::log};
+// use std::collections::LinkedList;
+// use gloo_console::{log, externs::log};
 use rand::{
     distributions::{Distribution, Standard, WeightedIndex},
     Rng,
 };
 use yew::prelude::*;
-use utils::Position;
-
-#[path = "./utils.rs"] mod utils;
+use crate::utils::Position;
 
 #[derive(Debug, Copy, Clone)]
 enum LineType {
