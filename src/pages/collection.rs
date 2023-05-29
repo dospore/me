@@ -1,7 +1,4 @@
 use yew::prelude::*;
-
-// use crate::components::animated_image;
-
 use crate::components::animated_image::AnimatedImage;
 
 #[function_component(Collection)]
@@ -18,6 +15,11 @@ pub fn collection() -> Html {
                     <span>{"] "}</span>
                 </span>
                 {"jpegs which are ultimately worthless."}
+            </p>
+            <p class="code">
+                {"// This collection is screenshotted and has no real value"}
+                <br />
+                {"// TODO make not screenshottable"}
             </p>
             <div class="assets">
                 <AnimatedImage collection="broker" />

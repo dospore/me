@@ -1,20 +1,52 @@
 use yew::prelude::*;
+use yew_router::prelude::*;
+
+use crate::utils::Route;
+// use gloo_console::{log, externs::log};
 
 #[function_component(Header)]
 pub fn header() -> Html {
+
+    let route: Route = use_route().unwrap();
+
+    // log!("{:?}", navigator.basename());
+
     html! {
-        <div class="nav">
-                        <span class="link">
-                            <a href="/">{"cd"}</a>
-                        </span>
-                        <span class="seperator">{"|"}</span>
-                        <span class="link">
-                            <a href="/projects">{"cd /projects"}</a>
-                        </span>
-                        <span class="seperator">{"|"}</span>
-                        <span class="link">
-                            <a href="/collection">{"cd /collection"}</a>
-                        </span>
+        <div class={classes!("nav", "code")}>
+            <span class={
+                classes!(
+                    "link",
+                    if route == Route::Home { "selected" } else { "" }
+                )}
+            >
+                <Link <Route> to={Route::Home}>
+                    <span class="dim">{"cd"}</span>
+                </Link<Route>>
+            </span>
+            <span class="seperator">{"|"}</span>
+            <span class={
+                classes!(
+                    "link",
+                    if route == Route::Projects { "selected" } else { "" }
+                )}
+            >
+                <Link <Route> to={Route::Projects}>
+                    <span class="dim">{"cd "}</span>
+                    {"/projects"}
+                </Link<Route>>
+            </span>
+            <span class="seperator">{"|"}</span>
+            <span class={
+                classes!(
+                    "link",
+                    if route == Route::Collection { "selected" } else { "" }
+                )}
+            >
+                <Link <Route> to={Route::Collection}>
+                    <span class="dim">{"cd "}</span>
+                    {"/collection"}
+                </Link<Route>>
+            </span>
         </div>
     }
 

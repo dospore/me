@@ -1,11 +1,14 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+use crate::utils::Route;
+
 pub mod utils;
 
 mod pages;
 use pages::{
     collection::Collection,
+    projects::Projects,
     home::Home,
 };
 
@@ -14,22 +17,14 @@ use components::{
     header::Header,
 };
 
-#[derive(Debug, Clone, Copy, PartialEq, Routable)]
-enum Route {
-    #[at("/")]
-    Home,
-    #[at("/collection")]
-    Collection,
-    #[not_found]
-    #[at("/404")]
-    NotFound,
-}
-
 fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => html! { <Home /> },
         Route::Collection => html! {
             <Collection />
+        },
+        Route::Projects => html! {
+            <Projects />
         },
         Route::NotFound => html! { <h1>{ "404" }</h1> },
     }
