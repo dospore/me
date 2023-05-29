@@ -34,10 +34,10 @@ fn switch(routes: Route) -> Html {
 #[function_component(App)]
 fn app() -> Html {
     html! {
-        <BrowserRouter>
+        <HashRouter>
             <Header />
             <Switch <Route> render={switch} />
-        </BrowserRouter>
+        </HashRouter>
     }
 }
 

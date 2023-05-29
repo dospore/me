@@ -2,14 +2,11 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 
 use crate::utils::Route;
-// use gloo_console::{log, externs::log};
 
 #[function_component(Header)]
 pub fn header() -> Html {
 
     let route: Route = use_route().unwrap();
-
-    // log!("{:?}", navigator.basename());
 
     html! {
         <div class={classes!("nav", "code")}>
