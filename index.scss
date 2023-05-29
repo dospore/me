@@ -1,21 +1,33 @@
 :root {
     --color: #aaa;
-    --background: #000;
     --size: 1;
     /* --glow: 1 */
     --animation: terminal-blink;
 
     --frame: tomato;
+    --primary: #0C71E0; // (Deep Blue)
+    --secondary: #E6880C; // (Golden Orange)
+    --accent1: #19D9FF; // (Electric Blue)
+    --accent2: #FFCB19; // (Yellow Gold)
+    --background: #212121; // (Charcoal Black)
+    --text: #FFFFFF; // (White)
+}
+
+@font-face {
+ font-family: 'Montserrat';
+ src: url(/static/fonts/Montserrat/Montserrat-VariableFont_wght.ttf) format('ttf');
 }
 
 html,
 body {
   height: 100%;
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
-  background: black;
+  background: var(--background);
+  color: var(--text);
   font-size: 1.5rem;
 }
 
@@ -40,14 +52,21 @@ main {
 }
 
 .nav {
+    width: 800px;
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+
     font-size: 14px;
-    color: gray;
+    color: var(--text);
 
-    & .link a {
-        text-decoration: none;
+    .link {
+        a {
+            color: var(--text);
+            text-decoration: none;
+        }
     }
-
-    & .seperator {
+    .seperator {
         margin-left: 0.5rem;
         margin-right: 0.5rem;
     }
@@ -78,8 +97,31 @@ h1 + .subtitle {
 }
 
 .collection {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    h1 {
+        font-size: 22px;
+        text-decoration: underline;
+        text-decoration-color: var(--accent2);
+    }
+    p {
+        font-size: 14px;
+    }
+    .redacted {
+        color: var(--accent2);
+
+        span:nth-child(2) {
+            color: var(--text);
+            text-decoration: line-through;
+            text-decoration-color: var(--accent2);
+        }
+    }
+    .assets {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .animated-image {
@@ -117,7 +159,7 @@ h1 + .subtitle {
 
   &:hover {
     animation-play-state: running;
-    box-shadow: -50px -50px 0 -40px var(--frame), 50px 50px 0 -40px var(--frame);
+    box-shadow: -50px -50px 0 -40px var(--accent2), 50px 50px 0 -40px var(--accent1);
 
     .collection-name, .token-id {
         opacity: 1;
@@ -147,34 +189,36 @@ h1 + .subtitle {
   animation: animate-punk 1s infinite;
 }
 
-
 @keyframes animate-broker {
   0% { background-image: url("/static/frames/broker/frame_00_delay-0.1s.gif"); }
-  5% { background-image: url("/static/frames/broker/frame_01_delay-0.1s.gif"); }
-  10% { background-image: url("/static/frames/broker/frame_02_delay-0.1s.gif"); }
-  15% { background-image: url("/static/frames/broker/frame_03_delay-0.1s.gif"); }
-  20% { background-image: url("/static/frames/broker/frame_04_delay-0.1s.gif"); }
-  25% { background-image: url("/static/frames/broker/frame_05_delay-0.1s.gif"); }
-  30% { background-image: url("/static/frames/broker/frame_06_delay-0.1s.gif"); }
-  35% { background-image: url("/static/frames/broker/frame_07_delay-0.1s.gif"); }
-  40% { background-image: url("/static/frames/broker/frame_08_delay-0.1s.gif"); }
-  45% { background-image: url("/static/frames/broker/frame_09_delay-0.1s.gif"); }
-  50% { background-image: url("/static/frames/broker/frame_10_delay-0.1s.gif"); }
-  55% { background-image: url("/static/frames/broker/frame_11_delay-0.1s.gif"); }
-  60% { background-image: url("/static/frames/broker/frame_12_delay-0.1s.gif"); }
-  65% { background-image: url("/static/frames/broker/frame_13_delay-0.1s.gif"); }
-  70% { background-image: url("/static/frames/broker/frame_14_delay-0.1s.gif"); }
-  75% { background-image: url("/static/frames/broker/frame_15_delay-0.1s.gif"); }
-  80% { background-image: url("/static/frames/broker/frame_16_delay-0.1s.gif"); }
-  85% { background-image: url("/static/frames/broker/frame_17_delay-0.1s.gif"); }
-  90% { background-image: url("/static/frames/broker/frame_18_delay-0.1s.gif"); }
-  95% { background-image: url("/static/frames/broker/frame_19_delay-0.1s.gif"); }
-  100% { background-image: url("/static/frames/broker/frame_20_delay-0.1s.gif"); }
+  4.35% { background-image: url("/static/frames/broker/frame_01_delay-0.1s.gif"); }
+  8.7% { background-image: url("/static/frames/broker/frame_02_delay-0.1s.gif"); }
+  13.04% { background-image: url("/static/frames/broker/frame_03_delay-0.1s.gif"); }
+  17.39% { background-image: url("/static/frames/broker/frame_04_delay-0.1s.gif"); }
+  21.74% { background-image: url("/static/frames/broker/frame_05_delay-0.1s.gif"); }
+  26.09% { background-image: url("/static/frames/broker/frame_06_delay-0.1s.gif"); }
+  30.43% { background-image: url("/static/frames/broker/frame_07_delay-0.1s.gif"); }
+  34.78% { background-image: url("/static/frames/broker/frame_08_delay-0.1s.gif"); }
+  39.13% { background-image: url("/static/frames/broker/frame_09_delay-0.1s.gif"); }
+  43.48% { background-image: url("/static/frames/broker/frame_10_delay-0.1s.gif"); }
+  47.83% { background-image: url("/static/frames/broker/frame_11_delay-0.1s.gif"); }
+  52.17% { background-image: url("/static/frames/broker/frame_12_delay-0.1s.gif"); }
+  56.52% { background-image: url("/static/frames/broker/frame_13_delay-0.1s.gif"); }
+  60.87% { background-image: url("/static/frames/broker/frame_14_delay-0.1s.gif"); }
+  65.22% { background-image: url("/static/frames/broker/frame_15_delay-0.1s.gif"); }
+  69.57% { background-image: url("/static/frames/broker/frame_16_delay-0.1s.gif"); }
+  73.91% { background-image: url("/static/frames/broker/frame_17_delay-0.1s.gif"); }
+  78.26% { background-image: url("/static/frames/broker/frame_18_delay-0.1s.gif"); }
+  82.61% { background-image: url("/static/frames/broker/frame_19_delay-0.1s.gif"); }
+  86.96% { background-image: url("/static/frames/broker/frame_20_delay-0.1s.gif"); }
+  91.3% { background-image: url("/static/frames/broker/frame_21_delay-0.1s.gif"); }
+  95.65% { background-image: url("/static/frames/broker/frame_22_delay-0.1s.gif"); }
+  100% { background-image: url("/static/frames/broker/frame_23_delay-0.1s.gif"); }
 }
 
 #broker {
   animation: animate-broker 2s infinite;
-  background-color: green;
+  background-color: var(--background);
 }
 
 @keyframes animate-captain {
