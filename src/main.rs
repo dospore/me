@@ -4,6 +4,7 @@ use yew_router::prelude::*;
 use crate::utils::Route;
 
 pub mod utils;
+pub mod helpers;
 
 mod pages;
 use pages::{
@@ -15,7 +16,9 @@ use pages::{
 pub mod components;
 use components::{
     header::Header,
+    lines::{ Side, Lines },
 };
+
 
 fn switch(routes: Route) -> Html {
     match routes {
@@ -37,6 +40,8 @@ fn app() -> Html {
         <HashRouter>
             <Header />
             <Switch <Route> render={switch} />
+            <Lines side={Side::Left} />
+            <Lines side={Side::Right} />
         </HashRouter>
     }
 }

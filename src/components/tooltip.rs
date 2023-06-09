@@ -4,6 +4,7 @@ use yew::prelude::*;
 pub struct TooltipProps {
     #[prop_or_default]
     pub children: Children,
+    pub label: String,
 }
 
 #[derive(Debug)]
@@ -50,21 +51,19 @@ impl Component for Tooltip {
 
     fn view(&self, ctx: &Context<Self>) -> Html {
         let tooltip_style = if self.show_tooltip {
-            "position: absolute; top: 100%; margin: auto; left: 0; right: 0; width: fit-content; display: block; background: green;"
+            "show"
         } else {
-            "display: none; background: green;"
+            "hide"
         };
 
         html! {
-            <div class="tooltip-container">
-                <span class="tooltip-trigger"
-                    onmouseover={ctx.link().callback(|_| Msg::Show)}
-                    onmouseout={ctx.link().callback(|_| Msg::Hide)}
-                >
-                    { for ctx.props().children.iter() }
-                </span>
-                <div class="tooltip" style={tooltip_style}>
-                    { "This is a tooltip!" }
+            <div class="tooltip-container"
+                onmouseover={ctx.link().callback(|_| Msg::Show)}
+                onmouseout={ctx.link().callback(|_| Msg::Hide)}
+            >
+                { for ctx.props().children.iter() }
+                <div class={classes!("tooltip", tooltip_style)}>
+                    {ctx.props().label.clone()}
                 </div>
             </div>
         }

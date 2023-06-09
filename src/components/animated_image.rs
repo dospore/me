@@ -1,5 +1,4 @@
 use yew::prelude::*;
-use std::fmt;
 
 #[derive(PartialEq, Clone)]
 pub enum Collections {

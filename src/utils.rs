@@ -6,6 +6,13 @@ pub struct Position {
     pub y: i32,
 }
 
+#[derive(Debug, Clone, Copy)]
+pub struct Grid {
+    // pub position: Position,
+    pub height: i32,
+    pub width: i32,
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Routable)]
 pub enum Route {
     #[at("/")]

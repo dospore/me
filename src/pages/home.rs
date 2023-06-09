@@ -1,14 +1,36 @@
 use yew::prelude::*;
 
+use crate::components::color_box::ColorBox;
+
 #[function_component(Home)]
 pub fn home() -> Html {
         html! {
-            <div>
+            <div class="content">
                 <h1 class="dospore">
                     {"dospore"}
                 </h1>
-                <div>
+                <div class="row">
                     {"Mostly dos a little bit of mushroom"}
+                </div>
+                <div class="row">
+                    {"Theme: "}
+                    <div class={"colors"}>
+                        <ColorBox color="var(--bg)" name="bg" />
+                        <ColorBox color="var(--text)" name="text" />
+                        <ColorBox color="var(--accent1)" name="accent1" />
+                        <ColorBox color="var(--accent2)" name="accent2" />
+                    </div>
+                </div>
+                <div class="row">
+                    {"Github: "}<a target="_blank" href={"https://github.com/dospore"}>{"goto github.dospore"}</a>
+                </div>
+                <div class="row">
+                    {"Twitter: "}<a href={"https://twitter.com/_dospore"}>{"goto twitter._dospore"}</a>
+                </div>
+                <div class="row">
+                    {"I'm a full stack developer specializing in web3. Not the kind of web3 discussed on Jimmy Fallon."}
+                    {"I am passionate about data security, inneficcient systems/practices and opensource development. "}
+                    {"I mostly build with React, node and hardhat but am currently improving my Rust. "}
                 </div>
             </div>
         }

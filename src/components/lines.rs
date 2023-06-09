@@ -1,12 +1,13 @@
 use gloo::timers::callback::Interval;
 // use std::collections::LinkedList;
-// use gloo_console::{log, externs::log};
+use gloo_console::log;
 use rand::{
     distributions::{Distribution, Standard, WeightedIndex},
     Rng,
 };
 use yew::prelude::*;
-use crate::utils::Position;
+use crate::utils::{Grid, Position};
+use crate::helpers::get_window_size;
 
 #[derive(Debug, Copy, Clone)]
 enum LineType {
@@ -29,7 +30,8 @@ impl Distribution<LineType> for Standard {
 }
 
 impl LineType {
-    pub fn get_weight(l: LineType, p: Position) -> i32 {
+    pub fn get_weight(l: LineType, p: Position, g: Grid) -> i32 {
+        log!(g.width, g.height);
         match l {
             LineType::Up => {
                 match p.y < 0 {
@@ -38,13 +40,13 @@ impl LineType {
                 }
             },
             LineType::Down => {
-                match p.y > Lines::GRID_HEIGHT {
+                match p.y + Line::LENGTH > g.height {
                     true => 0,
                     _ => 2
                 }
             },
             LineType::Right => {
-                match p.x > Lines::GRID_WIDTH {
+                match p.x + Line::WIDTH > g.width {
                     true => 0,
                     _ => 2
                 }
@@ -55,13 +57,12 @@ impl LineType {
                     _ => 2
                 }
             },
-            _ => 2
         }
     }
 
-    pub fn random(p: Position) -> LineType {
+    pub fn random(p: Position, g: Grid) -> LineType {
         let mut rng = rand::thread_rng();
-        let items = [LineType::Up, LineType::Down, LineType::Left, LineType::Right].map(|t| (t, LineType::get_weight(t, p)));
+        let items = [LineType::Up, LineType::Down, LineType::Left, LineType::Right].map(|t| (t, LineType::get_weight(t, p, g)));
         // let items = [(LineType::Up, LineType::get_weight(LineType::Up, p)), (LineType::Down, 3), (LineType::Right, 7), (LineType::Left, 0)];
         let weighted_dist= WeightedIndex::new(items.iter().map(|item| item.1)).unwrap();
         items[weighted_dist.sample(&mut rng)].0
@@ -102,25 +103,27 @@ impl Line {
 
 }
 
+#[derive(PartialEq)]
+pub enum Side {
+    Left, 
+    Right
+}
+
 #[derive(Properties, PartialEq)]
 pub struct LinesProps {
-    pub start: i32,
+    pub side: Side,
     #[prop_or_default]
     pub children: Children,
 }
 
 #[derive(Debug)]
 pub struct Lines {
-    position: Position,
+    position: Position, // drawing position
+    grid: Grid, // grid dimensions
     lines: Vec<Line>,
     _interval: Interval,
 }
 
-
-impl Lines {
-    const GRID_WIDTH: i32 = 500;
-    const GRID_HEIGHT: i32 = 500;
-}
 
 pub enum Msg {
     Tick,
@@ -132,7 +135,13 @@ impl Component for Lines {
     type Message = Msg;
     type Properties = LinesProps;
 
+
     fn create(ctx: &Context<Self>) -> Self {
+        let (grid_width, grid_height) = match get_window_size() {
+            Some((w, h)) => (w - 15, h - 20),
+            _ => (0, 0)
+        };
+
         let lines = Vec::new();
         let _interval = {
             let link = ctx.link().clone();
@@ -141,10 +150,20 @@ impl Component for Lines {
             })
         };
 
+        // starting drawing position
+        let (x, y) = match ctx.props().side {
+            Side::Right => (grid_width, grid_height),
+            Side::Left => (0, 0),
+        };
+
         Self {
+            grid: Grid {
+                width: grid_width as i32,
+                height: grid_height as i32,
+            },
             position: Position {
-                x: ctx.props().start,
-                y: ctx.props().start,
+                x: x as i32,
+                y: y as i32,
             },
             lines,
             _interval 
@@ -154,7 +173,7 @@ impl Component for Lines {
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Tick => {
-                    let line_type: LineType = LineType::random(self.position);
+                    let line_type: LineType = LineType::random(self.position, self.grid);
                     let new_line = Line {
                         position: Position {
                             x : self.position.x,
@@ -187,8 +206,12 @@ impl Component for Lines {
 
 
     fn view(&self, ctx: &Context<Self>) -> Html {
+        let side = match ctx.props().side {
+            Side::Left => "left",
+            Side::Right => "right"
+        };
         html! {
-            <div style={"position: absolute; left: 50px; top: 50px; width: 100%; height: 100%;"}>
+            <div class={classes!(side, "lines-container")}>
                 { for self.lines.iter().map(Line::render) }
             </div>
         }

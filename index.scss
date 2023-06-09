@@ -1,3 +1,4 @@
+/* GLOBAL STYLES */
 :root {
     --color: #aaa;
     --size: 1;
@@ -25,27 +26,34 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+a {
+    color: var(--text);
+    text-decoration-color: var(--accent2);
+    text-decoration-style: dashed;
+}
+
 body {
   background: var(--background);
   color: var(--text);
   font-size: 14px;
-  width: 650px;
+  width: 50%;
+  max-width: 650px;
   margin-left: auto;
   margin-right: auto;
 }
 
 main {
-  color: #fff;
+  color: var(--text);
   font-family: sans-serif;
 }
 
-.dospore::after {
-  content: "(dos-spore)";
-  display: inline-block;
-  font-family: Helvetica;
-  font-size: 0.8rem;
-  margin-left: 0.2rem;
-  text-decoration: none;
+h1 {
+    font-size: 22px;
+    text-decoration: underline;
+    text-decoration-color: var(--accent2);
+}
+p {
+    font-size: 14px;
 }
 
 .code {
@@ -56,7 +64,14 @@ main {
     color: #aaa;
 }
 
+/* PAGE STYLES */
+.content, .projects, .collection {
+    background: var(--background);
+}
+
+/* NAV STYLES */
 .nav {
+    background: var(--background);
     text-align: right;
     margin-left: auto;
     margin-right: auto;
@@ -86,34 +101,42 @@ main {
     }
 }
 
-.logo {
-  height: 20em;
+
+/* MAIN PAGE */
+.dospore::after {
+  content: "(dos-spore)";
+  display: inline-block;
+  font-family: Helvetica;
+  font-size: 0.8rem;
+  margin-left: 0.2rem;
+  text-decoration: none;
 }
 
-h1 {
-    font-size: 22px;
-    text-decoration: underline;
-    text-decoration-color: var(--accent2);
-}
-p {
-    font-size: 14px;
+.row {
+    margin-top: 4px;
 }
 
-
-.tooltip-container {
-    position: relative;
+.tabbed {
+    margin-left: 3.5rem;
 }
 
-.tooltip-trigger {
-
+.colors {
+    display: inline-block;
+    height: 10px;
 }
 
-.line {
-    position: absolute;
-    opacity: 0.3;
-    background: green;
+.color-box {
+    display: inline-block;
+    width: 5px;
+    height: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
+/* COLLECTION */
 .collection {
     margin-left: auto;
     margin-right: auto;
@@ -334,5 +357,63 @@ p {
   animation: animate-captain 3.5s infinite;
 }
 
+/* COMPONENT STYLES */
 
+// Tooltip
+.tooltip {
+    display: none;
+}
 
+.tooltip-container {
+    display: inline-block;
+    max-height: 100%;
+    position: relative;
+}
+
+.tooltip-trigger {
+
+}
+
+.tooltip.show {
+    position: absolute;
+    bottom: 100%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: fit-content;
+    display: block;
+    border: 1px solid var(--accent2);
+    padding: 1px 3px;
+    background: var(--background);
+}
+
+// Lines
+.lines-container {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+
+    &.left {
+        top: 0;
+    }
+    &.right {
+        bottom: 0;
+    }
+}
+
+.lines-relative {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.line {
+    position: absolute;
+    opacity: 0.3;
+    background: var(--accent1);
+    &:nth-child(even) {
+        background: var(--accent2);
+    }
+}

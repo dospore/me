@@ -19,3 +19,4 @@ gloo-console = "0.2.3"
 rand = "0.8.0"
 getrandom = { version = "0.2", features = ["js"] }
 yew-router = "0.17.0"
+web-sys = "0.3.63"
