@@ -411,7 +411,7 @@ p {
 
 .line {
     position: absolute;
-    opacity: 0.3;
+    opacity: 0.1;
     background: var(--accent1);
     &:nth-child(even) {
         background: var(--accent2);
