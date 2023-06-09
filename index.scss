@@ -11,6 +11,7 @@
     --accent1: #19D9FF; // (Electric Blue)
     --accent2: #FFCB19; // (Yellow Gold)
     --background: #212121; // (Charcoal Black)
+    --background-opaque: #2121210D; // (Charcoal Black Opaque)
     --text: #FFFFFF; // (White)
 }
 
@@ -36,7 +37,7 @@ body {
   background: var(--background);
   color: var(--text);
   font-size: 14px;
-  width: 50%;
+  width: 60%;
   max-width: 650px;
   margin-left: auto;
   margin-right: auto;
@@ -66,7 +67,7 @@ p {
 
 /* PAGE STYLES */
 .content, .projects, .collection {
-    background: var(--background);
+    background: var(--background-opaque);
 }
 
 /* NAV STYLES */

@@ -25,12 +25,24 @@ pub fn home() -> Html {
                     {"Github: "}<a target="_blank" href={"https://github.com/dospore"}>{"goto github.dospore"}</a>
                 </div>
                 <div class="row">
-                    {"Twitter: "}<a href={"https://twitter.com/_dospore"}>{"goto twitter._dospore"}</a>
+                    {"Twitter: "}<a target="_blank" href={"https://twitter.com/_dospore"}>{"goto twitter._dospore"}</a>
+                </div>
+                <div>
+                    {"Discord: "}<a target="_blank" href={"https://discord.com/users/810701025353924669"}>{"goto discord.Dospore#6811"}</a>
+                </div>
+                <br />
+                <div class="row">
+                    {"I'm a full-stack developer specializing in dapp development. "}
+                    {"I am passionate about data security, inneficcient systems/practices and opensource development. "}
+                    {"I mostly build with React, node and hardhat but am currently improving my Rust -- that is why this website is written in rust :)"}
+                    <br />
+                    <br />
+                    {"Contact me on "} 
+                    <a target="_blank" href={"https://twitter.com/_dospore"}>{"twitter"}</a>
+                    {" or "}
+                    <a target="_blank" href={"https://discord.com/users/810701025353924669"}>{"discord"}</a>
                 </div>
                 <div class="row">
-                    {"I'm a full stack developer specializing in web3. Not the kind of web3 discussed on Jimmy Fallon."}
-                    {"I am passionate about data security, inneficcient systems/practices and opensource development. "}
-                    {"I mostly build with React, node and hardhat but am currently improving my Rust. "}
                 </div>
             </div>
         }
