@@ -1,6 +1,8 @@
 use yew::prelude::*;
 
-use crate::components::color_box::ColorBox;
+use crate::components::{
+    color_box::ColorBox
+};
 
 #[function_component(Home)]
 pub fn home() -> Html {
@@ -41,8 +43,6 @@ pub fn home() -> Html {
                     <a target="_blank" href={"https://twitter.com/_dospore"}>{"twitter"}</a>
                     {" or "}
                     <a target="_blank" href={"https://discord.com/users/810701025353924669"}>{"discord"}</a>
-                </div>
-                <div class="row">
                 </div>
             </div>
         }

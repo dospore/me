@@ -1,4 +1,5 @@
 use gloo::timers::callback::Interval;
+use web_sys::MouseEvent;
 // use std::collections::LinkedList;
 use gloo_console::log;
 use rand::{
@@ -30,39 +31,56 @@ impl Distribution<LineType> for Standard {
 }
 
 impl LineType {
-    pub fn get_weight(l: LineType, p: Position, g: Grid) -> i32 {
-        log!(g.width, g.height);
+    pub fn get_weight(l: LineType, p: Position, g: Grid, mouse_position: Option<Position>) -> i32 {
+        let (weight_x, weight_y) = match mouse_position {
+            Some(target) => {
+                let distance_x = (target.x - p.x).abs();
+                let distance_y = (target.y - p.y).abs();
+
+
+                let weight_y: i32 = ((distance_y as f64 / g.height as f64).clamp(0.0, 1.0) * 100.0) as i32;
+                let weight_x: i32 = ((distance_x as f64 / g.width as f64).clamp(0.0, 1.0) * 100.0) as i32;
+                if weight_y == 0 && weight_x == 0 {
+                    (1, 1)
+                } else {
+                    (weight_x, weight_y)
+                }
+            }, _ => {
+                (1, 1)
+            }
+        };
+
         match l {
             LineType::Up => {
                 match p.y < 0 {
                     true => 0,
-                    _ => 2
+                    _ => weight_y
                 }
             },
             LineType::Down => {
                 match p.y + Line::LENGTH > g.height {
                     true => 0,
-                    _ => 2
+                    _ => weight_y
                 }
             },
             LineType::Right => {
                 match p.x + Line::WIDTH > g.width {
                     true => 0,
-                    _ => 2
+                    _ => weight_x
                 }
             },
             LineType::Left => {
                 match p.x < 0 {
                     true => 0,
-                    _ => 2
+                    _ => weight_x
                 }
             },
         }
     }
 
-    pub fn random(p: Position, g: Grid) -> LineType {
+    pub fn random(p: Position, g: Grid, mouse_position: Option<Position>) -> LineType {
         let mut rng = rand::thread_rng();
-        let items = [LineType::Up, LineType::Down, LineType::Left, LineType::Right].map(|t| (t, LineType::get_weight(t, p, g)));
+        let items = [LineType::Up, LineType::Down, LineType::Left, LineType::Right].map(|t| (t, LineType::get_weight(t, p, g, mouse_position)));
         // let items = [(LineType::Up, LineType::get_weight(LineType::Up, p)), (LineType::Down, 3), (LineType::Right, 7), (LineType::Left, 0)];
         let weighted_dist= WeightedIndex::new(items.iter().map(|item| item.1)).unwrap();
         items[weighted_dist.sample(&mut rng)].0
@@ -116,19 +134,22 @@ pub struct LinesProps {
     pub children: Children,
 }
 
-#[derive(Debug)]
-pub struct Lines {
-    position: Position, // drawing position
-    grid: Grid, // grid dimensions
-    lines: Vec<Line>,
-    _interval: Interval,
-}
-
 
 pub enum Msg {
     Tick,
+    MouseMove(MouseEvent),
     // StartDrawing,
     // StopDrawing
+}
+
+#[derive(Debug)]
+pub struct Lines {
+    position: Position, // drawing position
+    mouse_position: Option<Position>,
+    grid: Grid, // grid dimensions
+    lines: Vec<Line>,
+    _interval: Interval,
+    on_mouse_move: Callback<MouseEvent>
 }
 
 impl Component for Lines {
@@ -166,14 +187,16 @@ impl Component for Lines {
                 y: y as i32,
             },
             lines,
-            _interval 
+            _interval,
+            mouse_position: None,
+            on_mouse_move: ctx.link().callback(|e| Msg::MouseMove(e))
         }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Tick => {
-                    let line_type: LineType = LineType::random(self.position, self.grid);
+                    let line_type: LineType = LineType::random(self.position, self.grid, self.mouse_position);
                     let new_line = Line {
                         position: Position {
                             x : self.position.x,
@@ -200,6 +223,12 @@ impl Component for Lines {
                     }
                     true
                 // }
+            }, Msg::MouseMove(event) => {
+                let x = event.client_x();
+                let y = event.client_y();
+                self.mouse_position = Some(Position { x, y });
+                log!("{}, {}", x, y);
+                true
             }
         }
     }
@@ -211,7 +240,7 @@ impl Component for Lines {
             Side::Right => "right"
         };
         html! {
-            <div class={classes!(side, "lines-container")}>
+            <div class={classes!(side, "lines-container")} onmousemove={&self.on_mouse_move}>
                 { for self.lines.iter().map(Line::render) }
             </div>
         }

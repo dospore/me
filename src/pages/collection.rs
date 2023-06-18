@@ -8,13 +8,13 @@ pub fn collection() -> Html {
             <h1>{"The Vault"}</h1>
             <p>
                 {"If I had to make a justification on my gambling addictions I'd say I like jpegs which in some way are technologically innovative. "}
-                {"Don't be fooled into thinking this is a successful collection. I bought many"}
+                {"I bought many"}
                 <span class="redacted">
                     <span>{" ["}</span>
                     <span>{"redacted"}</span>
                     <span>{"] "}</span>
                 </span>
-                {"jpegs which are ultimately worthless."}
+                {"jpegs which are not listed here."}
             </p>
             <p class="code">
                 {"// This collection is screenshotted and has no real value"}
