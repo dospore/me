@@ -28,12 +28,6 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-a {
-    color: var(--text);
-    text-decoration-color: var(--accent2);
-    text-decoration-style: dashed;
-}
-
 body {
   background: var(--background);
   color: var(--text);
@@ -44,18 +38,44 @@ body {
   margin-right: auto;
 }
 
+@media (max-width: 700px) {
+    body {
+        width: 100%;
+        max-width: 100%;
+    }
+    .content, .projects, .collection {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .nav {
+        padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        .seperator {
+            display: none;
+        }
+    }
+}
+
 main {
   color: var(--text);
   font-family: sans-serif;
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 1.25rem;
     text-decoration: underline;
     text-decoration-color: var(--accent2);
 }
+
+a {
+    color: var(--text);
+    text-decoration-color: var(--accent2);
+    text-decoration-style: dashed;
+}
+
 p {
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .code {
@@ -80,7 +100,7 @@ p {
     margin-right: auto;
     margin-top: 0.5rem;
 
-    font-size: 14px;
+    font-size: 1rem;
     color: var(--text);
 
     .link {
@@ -163,7 +183,7 @@ p {
 }
 
 .project-title {
-    font-size: 20px;
+    font-size: 1.1rem;
     margin-bottom: 0;
 }
 
