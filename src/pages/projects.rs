@@ -10,10 +10,19 @@ pub fn projects() -> Html {
 
     let projects = vec![
         ProjectItem {
-            name: "Test".to_string(),
-            duration: "Whole life".to_string(),
-            description: "This NFT granted me access to an online clubhouse platform, enabling interactions with other holders and active participation in a community focused on the asset. Additionally, I created a Twitter profile that complemented the NFT's aesthetic, fostering connections and engagement with fellow holders. Thank you for your kind attention. I eagerly await your response.".to_string()
-        }
+            name: "Mycelium.xyz".to_string(),
+            link: "https://mycelium.xyz/".to_string(),
+            role: "Full-stack Develeoper".to_string(),
+            duration: "Long time".to_string(),
+            description: "Full-stack developer at Mycelium. Core team building decentralised Perpetual Swaps and Perpetual Pool mechanisms.".to_string()
+        },
+        ProjectItem {
+            name: "This Website".to_string(),
+            link: "https://github.com/dospore/me".to_string(),
+            role: "Rustacean in training".to_string(),
+            duration: "Indefinite".to_string(),
+            description: "I am trying to improve my Rust skills through something I know well (web development). If you are asking yourself 'WTF is this' the answer is probably me attempting to showcase the power of wasm.".to_string()
+        },
     ];
 
     html! {

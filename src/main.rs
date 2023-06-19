@@ -16,7 +16,7 @@ use pages::{
 pub mod components;
 use components::{
     header::Header,
-    lines::{ Side, Lines },
+    lines::Lines
 };
 
 
@@ -40,8 +40,7 @@ fn app() -> Html {
         <HashRouter>
             <Header />
             <Switch <Route> render={switch} />
-            <Lines side={Side::Left} />
-            <Lines side={Side::Right} />
+            <Lines />
         </HashRouter>
     }
 }

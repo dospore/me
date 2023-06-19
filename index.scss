@@ -11,7 +11,8 @@
     --accent1: #19D9FF; // (Electric Blue)
     --accent2: #FFCB19; // (Yellow Gold)
     --background: #212121; // (Charcoal Black)
-    --background-opaque: #2121210D; // (Charcoal Black Opaque)
+    // --background-opaque: #2121210D; // (Charcoal Black Opaque)
+    --background-opaque: #212121E6; // (Charcoal Black Opaque)
     --text: #FFFFFF; // (White)
 }
 
@@ -68,6 +69,7 @@ p {
 /* PAGE STYLES */
 .content, .projects, .collection {
     background: var(--background-opaque);
+    box-shadow: 0px 0px 20px var(--background);
 }
 
 /* NAV STYLES */
@@ -136,6 +138,35 @@ p {
         transform: scale(1.05);
     }
 }
+
+/* PROJECTS */
+.projects {
+    p {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.project {
+    position: relative;
+    border-bottom: solid 1px var(--text);
+}
+
+.project-duration {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.project-role {
+
+}
+
+.project-title {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
 
 /* COLLECTION */
 .collection {
@@ -394,14 +425,8 @@ p {
     z-index: -1;
     width: 100%;
     height: 100%;
+    top: 0;
     left: 0;
-
-    &.left {
-        top: 0;
-    }
-    &.right {
-        bottom: 0;
-    }
 }
 
 .lines-relative {

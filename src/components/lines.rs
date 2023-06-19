@@ -1,7 +1,5 @@
 use gloo::timers::callback::Interval;
 use web_sys::MouseEvent;
-// use std::collections::LinkedList;
-use gloo_console::log;
 use rand::{
     distributions::{Distribution, Standard, WeightedIndex},
     Rng,
@@ -9,9 +7,12 @@ use rand::{
 use yew::prelude::*;
 use crate::utils::{Grid, Position};
 use crate::helpers::get_window_size;
+// use gloo_console::log;
+// use gloo::utils::window;
+// use gloo::events::EventListener;
 
 #[derive(Debug, Copy, Clone)]
-enum LineType {
+pub enum LineType {
     Up,
     Down,
     Right, 
@@ -30,58 +31,71 @@ impl Distribution<LineType> for Standard {
     }
 }
 
-impl LineType {
-    pub fn get_weight(l: LineType, p: Position, g: Grid, mouse_position: Option<Position>) -> i32 {
-        let (weight_x, weight_y) = match mouse_position {
-            Some(target) => {
-                let distance_x = (target.x - p.x).abs();
-                let distance_y = (target.y - p.y).abs();
+pub fn get_weights(p: &Position, g: Grid, mouse_position: Option<Position>) -> [(LineType, i32); 4] {
+    let mut up_weight: i32 = 1;
+    let mut down_weight: i32 = 1;
+    let mut left_weight: i32 = 1;
+    let mut right_weight: i32 = 1;
+
+    // UP 
+    if p.y < 0 {
+        up_weight = 0;
+    }
+
+    // DOWN
+    if p.y + Line::LENGTH > g.height {
+        down_weight = 0;
+    }
+
+    // RIGHT
+    if p.x + Line::WIDTH > g.width {
+        right_weight = 0;
+    }
+
+    // LEFT
+    if p.x < 0 {
+        left_weight = 0;
+    }
+
+    if let Some(target) = mouse_position {
+        let distance_x = (target.x - p.x).abs();
+        let distance_y = (target.y - p.y).abs();
 
 
-                let weight_y: i32 = ((distance_y as f64 / g.height as f64).clamp(0.0, 1.0) * 100.0) as i32;
-                let weight_x: i32 = ((distance_x as f64 / g.width as f64).clamp(0.0, 1.0) * 100.0) as i32;
-                if weight_y == 0 && weight_x == 0 {
-                    (1, 1)
-                } else {
-                    (weight_x, weight_y)
-                }
-            }, _ => {
-                (1, 1)
-            }
-        };
+        let weight_y: i32 = ((distance_y as f64 / g.height as f64).clamp(0.0, 1.0) * 100.0) as i32;
+        let weight_x: i32 = ((distance_x as f64 / g.width as f64).clamp(0.0, 1.0) * 100.0) as i32;
 
-        match l {
-            LineType::Up => {
-                match p.y < 0 {
-                    true => 0,
-                    _ => weight_y
-                }
-            },
-            LineType::Down => {
-                match p.y + Line::LENGTH > g.height {
-                    true => 0,
-                    _ => weight_y
-                }
-            },
-            LineType::Right => {
-                match p.x + Line::WIDTH > g.width {
-                    true => 0,
-                    _ => weight_x
-                }
-            },
-            LineType::Left => {
-                match p.x < 0 {
-                    true => 0,
-                    _ => weight_x
-                }
-            },
+        let randomness = 5;
+        // favour moving towards target but keep some randomness
+        if p.y < target.y {
+            down_weight = std::cmp::max(weight_y - randomness, randomness);
+            up_weight = randomness;
+        } else if p.y > target.y {
+            up_weight = std::cmp::max(weight_y - randomness, randomness);
+            down_weight = randomness;
+        }
+
+        if p.x < target.x {
+            right_weight = std::cmp::max(weight_x - randomness, randomness);
+            left_weight = randomness;
+        } else if p.x > target.x {
+            left_weight = std::cmp::max(weight_x - randomness, randomness);
+            right_weight = randomness;
         }
     }
 
-    pub fn random(p: Position, g: Grid, mouse_position: Option<Position>) -> LineType {
+    return [
+        (LineType::Right, right_weight),
+        (LineType::Left, left_weight),
+        (LineType::Up, up_weight),
+        (LineType::Down, down_weight)
+    ]
+}
+
+impl LineType {
+    pub fn random(p: &Position, g: Grid, mouse_position: Option<Position>) -> LineType {
         let mut rng = rand::thread_rng();
-        let items = [LineType::Up, LineType::Down, LineType::Left, LineType::Right].map(|t| (t, LineType::get_weight(t, p, g, mouse_position)));
-        // let items = [(LineType::Up, LineType::get_weight(LineType::Up, p)), (LineType::Down, 3), (LineType::Right, 7), (LineType::Left, 0)];
+        let items = get_weights(p, g, mouse_position);
         let weighted_dist= WeightedIndex::new(items.iter().map(|item| item.1)).unwrap();
         items[weighted_dist.sample(&mut rng)].0
     }
@@ -121,15 +135,8 @@ impl Line {
 
 }
 
-#[derive(PartialEq)]
-pub enum Side {
-    Left, 
-    Right
-}
-
 #[derive(Properties, PartialEq)]
 pub struct LinesProps {
-    pub side: Side,
     #[prop_or_default]
     pub children: Children,
 }
@@ -144,12 +151,12 @@ pub enum Msg {
 
 #[derive(Debug)]
 pub struct Lines {
-    position: Position, // drawing position
     mouse_position: Option<Position>,
     grid: Grid, // grid dimensions
+    positions: Vec<Position>, // drawing position
     lines: Vec<Line>,
+    on_mouse_move: Callback<MouseEvent>,
     _interval: Interval,
-    on_mouse_move: Callback<MouseEvent>
 }
 
 impl Component for Lines {
@@ -163,7 +170,6 @@ impl Component for Lines {
             _ => (0, 0)
         };
 
-        let lines = Vec::new();
         let _interval = {
             let link = ctx.link().clone();
             Interval::new(20, move || {
@@ -171,21 +177,23 @@ impl Component for Lines {
             })
         };
 
-        // starting drawing position
-        let (x, y) = match ctx.props().side {
-            Side::Right => (grid_width, grid_height),
-            Side::Left => (0, 0),
-        };
+        let lines = Vec::new();
+
+        // could make this dynamic
+        let positions: Vec<Position> = vec![
+            Position { x: grid_width as i32, y: grid_height as i32 },
+            Position { x: 0, y: 0 }
+        ];
+
+        // let listener = EventListener::new(&window(), "storage", move |_| state_storage_changed.set(true));
+
 
         Self {
             grid: Grid {
                 width: grid_width as i32,
                 height: grid_height as i32,
             },
-            position: Position {
-                x: x as i32,
-                y: y as i32,
-            },
+            positions,
             lines,
             _interval,
             mouse_position: None,
@@ -196,11 +204,12 @@ impl Component for Lines {
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Tick => {
-                    let line_type: LineType = LineType::random(self.position, self.grid, self.mouse_position);
+                for position in self.positions.iter_mut() {
+                    let line_type: LineType = LineType::random(&position, self.grid, self.mouse_position);
                     let new_line = Line {
                         position: Position {
-                            x : self.position.x,
-                            y : self.position.y,
+                            x : position.x,
+                            y : position.y,
                         },
                         t: line_type
                     };
@@ -209,25 +218,24 @@ impl Component for Lines {
 
                     match line_type {
                         LineType::Up => {
-                            self.position.y -= Line::LENGTH;
+                            position.y -= Line::LENGTH;
                         },
                         LineType::Down => {
-                            self.position.y += Line::LENGTH;
+                            position.y += Line::LENGTH;
                         },
                         LineType::Right => {
-                            self.position.x += Line::LENGTH - Line::WIDTH;
+                            position.x += Line::LENGTH - Line::WIDTH;
                         },
                         _ => {
-                            self.position.x -= Line::LENGTH;
+                            position.x -= Line::LENGTH;
                         }
                     }
-                    true
-                // }
+                }
+                true
             }, Msg::MouseMove(event) => {
                 let x = event.client_x();
                 let y = event.client_y();
                 self.mouse_position = Some(Position { x, y });
-                log!("{}, {}", x, y);
                 true
             }
         }
@@ -235,14 +243,15 @@ impl Component for Lines {
 
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let side = match ctx.props().side {
-            Side::Left => "left",
-            Side::Right => "right"
-        };
         html! {
-            <div class={classes!(side, "lines-container")} onmousemove={&self.on_mouse_move}>
+            <div class={classes!("lines-container")} onmousemove={&self.on_mouse_move}>
                 { for self.lines.iter().map(Line::render) }
             </div>
         }
     }
 }
+
+
+
+
+

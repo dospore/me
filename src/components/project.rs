@@ -4,6 +4,8 @@ use yew::prelude::*;
 pub struct ProjectItem {
     pub name: String,
     pub duration: String,
+    pub role: String,
+    pub link: String,
     pub description: String
 }
 
@@ -18,10 +20,11 @@ pub struct ProjectProps {
 #[function_component(Project)]
 pub fn project(props: &ProjectProps) -> Html {
     html! {
-        <div>
-            <h2>{&props.project.name}</h2>
-            <p>{"Duration: "}{&props.project.duration}</p>
-            <p>{&props.project.description}</p>
+        <div class="project">
+            <h2 class="project-title"><a href={props.project.link.clone()}>{&props.project.name}</a></h2>
+            <p class="project-duration">{"Duration: "}{&props.project.duration}</p>
+            <p class="project-role">{"Role: "}{&props.project.role}</p>
+            <p class="project-description">{&props.project.description}</p>
         </div>
     }
 }
