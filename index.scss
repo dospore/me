@@ -25,14 +25,15 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: monospace;
+  line-height: 1.2;
 }
 
 body {
   background: var(--background);
   color: var(--text);
   font-size: 14px;
-  width: 60%;
+  width: 70%;
   max-width: 650px;
   margin-left: auto;
   margin-right: auto;
@@ -88,6 +89,7 @@ p {
 
 /* PAGE STYLES */
 .content, .projects, .collection {
+    padding: 1rem;
     background: var(--background-opaque);
     box-shadow: 0px 0px 20px var(--background);
 }
@@ -136,7 +138,8 @@ p {
 }
 
 .row {
-    margin-top: 4px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .tabbed {
@@ -410,6 +413,28 @@ p {
 }
 
 /* COMPONENT STYLES */
+// weird button
+.lets-get-weird {
+  background: linear-gradient(45deg, #ff0000, #ff7700, #ffcc00, #33ff00, #0077ff, #9900ff, #ff00cc, #ff00cc, #9900ff, #0077ff, #33ff00, #ffcc00, #ff7700, #ff0000);
+  background-size: 600% 100%;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    animation: rainbow 0.5s linear infinite;
+  }
+}
+
+/* Animation to make the rainbow cycle */
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
 
 // Tooltip
 .tooltip {
@@ -458,8 +483,25 @@ p {
 .line {
     position: absolute;
     opacity: 0.1;
-    background: var(--accent1);
-    &:nth-child(even) {
-        background: var(--accent2);
+    &:nth-child(7n+1) {
+      background: #ff00cc;
+    }
+    &:nth-child(7n+2) {
+      background: #9900ff;
+    }
+    &:nth-child(7n+3) {
+      background: #0077ff;
+    }
+    &:nth-child(7n+4) {
+      background: #33ff00; 
+    }
+    &:nth-child(7n+5) {
+      background: #ffcc00;
+    }
+    &:nth-child(7n+6) {
+      background: #ff7700;
+    }
+    &:nth-child(7n+7) {
+      background: #ff0000;
     }
 }

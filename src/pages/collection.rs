@@ -16,15 +16,15 @@ pub fn collection() -> Html {
                 </span>
                 {"jpegs which are not listed here."}
             </p>
-            <p class="code">
+            <p>
                 {"// This collection is screenshotted and has no real value"}
                 <br />
                 {"// TODO make not screenshottable"}
             </p>
             <div class="assets">
                 <AnimatedImage collection="broker" />
-                <AnimatedImage collection="punk" />
-                <AnimatedImage collection="captain" />
+                // <AnimatedImage collection="punk" />
+                // <AnimatedImage collection="captain" />
             </div>
         </div>
     }

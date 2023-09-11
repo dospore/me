@@ -21,16 +21,14 @@ pub fn projects() -> Html {
             link: "https://github.com/dospore/me".to_string(),
             role: "Rustacean in training".to_string(),
             duration: "Indefinite".to_string(),
-            description: "I am trying to improve my Rust skills through something I know well (web development). If you are asking yourself 'WTF is this' the answer is probably me attempting to showcase the power of wasm.".to_string()
+            description: "I am trying to improve my Rust skills through something I know well (web development). If you are asking yourself 'WTF is this' I don't have a good answer".to_string()
         },
     ];
 
     html! {
         <div class="projects">
             <h1>{"Projects"}</h1>
-            <p class="code">
-                {"// TODO do more stuff / list more projects"}
-            </p>
+            <p>{"// TODO do more stuff / list more projects"}</p>
             {for projects.into_iter().map(|p| html! { <Project project={p} /> })}
         </div>
     }

@@ -1,5 +1,6 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
+use yew::functional::use_state;
 
 use crate::utils::Route;
 
@@ -36,11 +37,24 @@ fn switch(routes: Route) -> Html {
 
 #[function_component(App)]
 fn app() -> Html {
+    let enable_weirdness = use_state(|| false);
+
+    let onclick = {
+        let weirdness = enable_weirdness.clone();
+        Callback::from(move |_| weirdness.set(!(*weirdness)))
+    };
+
     html! {
         <HashRouter>
             <Header />
             <Switch <Route> render={switch} />
-            <Lines />
+            <div class="content">
+                if *enable_weirdness{ <Lines /> }
+                <button class="lets-get-weird" onclick={onclick}>
+                    if *enable_weirdness { <>{"Stop"}</> } else { <>{"Start"}</> }
+                    {" weirdness"}
+                </button>
+            </div>
         </HashRouter>
     }
 }

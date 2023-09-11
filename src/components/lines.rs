@@ -37,26 +37,6 @@ pub fn get_weights(p: &Position, g: Grid, mouse_position: Option<Position>) -> [
     let mut left_weight: i32 = 1;
     let mut right_weight: i32 = 1;
 
-    // UP 
-    if p.y < 0 {
-        up_weight = 0;
-    }
-
-    // DOWN
-    if p.y + Line::LENGTH > g.height {
-        down_weight = 0;
-    }
-
-    // RIGHT
-    if p.x + Line::WIDTH > g.width {
-        right_weight = 0;
-    }
-
-    // LEFT
-    if p.x < 0 {
-        left_weight = 0;
-    }
-
     if let Some(target) = mouse_position {
         let distance_x = (target.x - p.x).abs();
         let distance_y = (target.y - p.y).abs();
@@ -84,6 +64,26 @@ pub fn get_weights(p: &Position, g: Grid, mouse_position: Option<Position>) -> [
         }
     }
 
+    // UP 
+    if p.y < 0 {
+        up_weight = 0;
+    }
+
+    // DOWN
+    if p.y + Line::LENGTH > g.height {
+        down_weight = 0;
+    }
+
+    // RIGHT
+    if p.x + Line::WIDTH > g.width {
+        right_weight = 0;
+    }
+
+    // LEFT
+    if p.x < 0 {
+        left_weight = 0;
+    }
+
     return [
         (LineType::Right, right_weight),
         (LineType::Left, left_weight),
@@ -109,8 +109,8 @@ struct Line {
 }
 
 impl Line {
-    const WIDTH: i32 = 2;
-    const LENGTH: i32 = 20;
+    const WIDTH: i32 = 50;
+    const LENGTH: i32 = 150;
 
     pub fn render(&self) -> Html {
         let Position { x, y } = self.position;
@@ -166,13 +166,13 @@ impl Component for Lines {
 
     fn create(ctx: &Context<Self>) -> Self {
         let (grid_width, grid_height) = match get_window_size() {
-            Some((w, h)) => (w - 15, h - 20),
+            Some((w, h)) => (w - (Line::WIDTH * 2) as u32, h - Line::WIDTH as u32),
             _ => (0, 0)
         };
 
         let _interval = {
             let link = ctx.link().clone();
-            Interval::new(20, move || {
+            Interval::new(50, move || {
                 link.send_message(Msg::Tick)
             })
         };
