@@ -21,7 +21,7 @@ pub struct ProjectProps {
 pub fn project(props: &ProjectProps) -> Html {
     html! {
         <div class="project">
-            <h2 class="project-title"><a href={props.project.link.clone()}>{&props.project.name}</a></h2>
+            <h2 class="project-title"><a target="_blank" href={props.project.link.clone()}>{&props.project.name}</a></h2>
             <p class="project-duration">{"Duration: "}{&props.project.duration}</p>
             <p class="project-role">{"Role: "}{&props.project.role}</p>
             <p class="project-description">{&props.project.description}</p>

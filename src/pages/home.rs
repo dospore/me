@@ -29,7 +29,10 @@ pub fn home() -> Html {
                 <div class="row">
                     {"Twitter: "}<a target="_blank" href={"https://twitter.com/_dospore"}>{"goto twitter._dospore"}</a>
                 </div>
-                <div>
+                <div class="row">
+                    {"Exercism: "}<a target="_blank" href={"https://exercism.org/profiles/dospore"}>{"goto exercism.Dospore"}</a>
+                </div>
+                <div class="row">
                     {"Discord: "}<a target="_blank" href={"https://discord.com/users/810701025353924669"}>{"goto discord.Dospore#6811"}</a>
                 </div>
                 <br />
