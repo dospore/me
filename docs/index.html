@@ -1,15 +1,29 @@
-<!DOCTYPE html><html><head>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dospore whoami</title>
-    <base href="/me/">
-    <link rel="stylesheet" href="/me/index-66ac1e21510f0fe9.css">
+    <base href="/me/" />
+    
+<script type="module" nonce="dOJpkr53kPJSGPfCC5kbag==">
+import init, * as bindings from '/me/trunk-template-4ce0aea568aef3ba.js';
+const wasm = await init('/me/trunk-template-4ce0aea568aef3ba_bg.wasm');
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+    <link rel="stylesheet" href="/me/index-f929bb015b6e9db8.css" integrity="sha384&#x2D;8mcCb3lNtJt2vJOXoLMVWzDjdzDpw0yktgUdtBwFYdTumB1X2H8LKF3&#x2F;85bJMVOe"/>
     
     
     <link rel="icon" sizes="16x16" href="/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
   
-<link rel="preload" href="/me/index-6a5ec85a35439d45_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/me/index-6a5ec85a35439d45.js"></head>
-<body>
-<script type="module">import init from '/me/index-6a5ec85a35439d45.js';init('/me/index-6a5ec85a35439d45_bg.wasm');</script></body></html>
+<link rel="modulepreload" href="/me/trunk-template-4ce0aea568aef3ba.js" crossorigin=anonymous integrity="sha384-LrWAbMCNf8nxvzx0LE0kjX4IuHebfMFpcoLXrxUbVjIi8AnUyEdWNo2lVCI1RHcT">
+<link rel="modulepreload" href="/me/snippets/wasm-bindgen-futures-3be933128f9e3240/src/task/worker.js" crossorigin=anonymous integrity="sha384-lXEmb4urOnE/QS1cpzn7ockliP7O0lTEnT8QoIw8wnwzSGMxl7gPd71/Y1DN4JFT">
+<link rel="preload" href="/me/trunk-template-4ce0aea568aef3ba_bg.wasm" crossorigin=anonymous integrity="sha384-nLwM7S/NHfZFRHm5RdekPksBd5/B+kqixkC/a0HQru6kZ9k7MXhS/Nf/vhbnwY2l" as="fetch" type="application/wasm"></head>
+</html>

@@ -3,7 +3,6 @@ use wasm_bindgen::{prelude::Closure, JsCast, JsValue};
 use wasm_bindgen_futures::JsFuture;
 use web_sys::{
     window,
-    Blob,
     // ImageBitmap,
     RequestInit,
     HtmlCanvasElement,

@@ -10,39 +10,53 @@ pub fn projects() -> Html {
 
     let projects = vec![
         ProjectItem {
-            name: "Mycelium.xyz".to_string(),
-            link: "https://mycelium.xyz/".to_string(),
-            role: "Full-stack Develeoper".to_string(),
-            duration: "Long time".to_string(),
-            description: "Full-stack developer at Mycelium. Core team building decentralised Perpetual Swaps and Perpetual Pool mechanisms.".to_string()
+            name: "Peak Studios",
+            link: "https://peak-studios.vercel.app/",
+            role: "Drone Pilot",
+            duration: "Hobby",
+            description: "FPV drone services inspired by using FPV drones for bridge inspections."
         },
         ProjectItem {
-            name: "This Website".to_string(),
-            link: "https://github.com/dospore/me".to_string(),
-            role: "Rustacean in training".to_string(),
-            duration: "Indefinite".to_string(),
-            description: "I am trying to improve my Rust skills through something I know well (web development). If you are asking yourself 'WTF is this' I don't have a good answer".to_string()
+            name: "Pendle (P)Lottery",
+            link: "https://pendle-pottery-ui.vercel.app/",
+            role: "Full-stack Develeoper",
+            duration: "2 days 3 long nights",
+            description: "Built a lottery dapp during ETH Sydney (an ETH Global) hackathon with two smart contract engineers. Won the best defi app deployed to mantl (prize of 3k USD)"
         },
         ProjectItem {
-            name: "Particles.rs".to_string(),
-            link: "https://particles-rs.vercel.app/".to_string(),
-            role: "Rustacean in training".to_string(),
-            duration: "Rainy weekend".to_string(),
-            description: "Ported the popular particles.js library to wasm/rust to experiment with wasm. This was not because particles.js is not performant, more of a learning excercise. Canvas interactions through rs are relatively slow compared to native js so I followed the approach recommended by \"the people of the internet\". Store state in rust and read directly from wasm memory to draw to the canvas.".to_string()
+            name: "Mycelium.xyz",
+            link: "https://mycelium.xyz/",
+            role: "Full-stack Develeoper",
+            duration: "Long time",
+            description: "Full-stack developer at Mycelium. Core team building decentralised Perpetual Swaps and Perpetual Pool mechanisms."
         },
         ProjectItem {
-            name: "Memeland Traits Wardrobe".to_string(),
-            link: "https://memeland-traits-canvas.vercel.app/".to_string(),
-            role: "Discord Sh*ttalker".to_string(),
-            duration: "Rainy weekend".to_string(),
-            description: "Inclusive Memeland".to_string()
+            name: "This Website",
+            link: "https://github.com/dospore/me",
+            role: "Rustacean in training",
+            duration: "Indefinite",
+            description: "I am trying to improve my Rust skills through something I know well (web development). If you are asking yourself 'WTF is this' I don't have a good answer"
         },
         ProjectItem {
-            name: "Aavegotchi Battler Stats".to_string(),
-            link: "https://dospore.github.io/gotchi-stats-calculator/".to_string(),
-            role: "Rustacean in training".to_string(),
-            duration: "Rainy weekend".to_string(),
-            description: "I wanted to build an AAVEgotchi Battler team so I put together a stats calculator using yew.rs to help me visualise the stats of the gotchi's I would be purchasing. I'll take any chance I can get to practice some Rust".to_string()
+            name: "Particles.rs",
+            link: "https://particles-rs.vercel.app/",
+            role: "Rustacean in training",
+            duration: "Rainy weekend",
+            description: "Ported the popular particles.js library to wasm/rust to experiment with wasm. This was not because particles.js is not performant, more of a learning excercise. Canvas interactions through rs are relatively slow compared to native js so I followed the approach recommended by \"the people of the internet\". Store state in rust and read directly from wasm memory to draw to the canvas."
+        },
+        ProjectItem {
+            name: "Memeland Traits Wardrobe",
+            link: "https://memeland-traits-canvas.vercel.app/",
+            role: "Discord Sh*ttalker",
+            duration: "Rainy weekend",
+            description: "Inclusive Memeland"
+        },
+        ProjectItem {
+            name: "Aavegotchi Battler Stats",
+            link: "https://dospore.github.io/gotchi-stats-calculator/",
+            role: "Rustacean in training",
+            duration: "Rainy weekend",
+            description: "I wanted to build an AAVEgotchi Battler team so I put together a stats calculator using yew.rs to help me visualise the stats of the gotchi's I would be purchasing. I'll take any chance I can get to practice some Rust"
         },
     ];
 

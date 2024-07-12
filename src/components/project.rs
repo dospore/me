@@ -2,11 +2,11 @@ use yew::prelude::*;
 
 #[derive(PartialEq)]
 pub struct ProjectItem {
-    pub name: String,
-    pub duration: String,
-    pub role: String,
-    pub link: String,
-    pub description: String
+    pub name: &'static str,
+    pub duration: &'static str,
+    pub role: &'static str,
+    pub link: &'static str,
+    pub description: &'static str 
 }
 
 #[derive(Properties, PartialEq)]
@@ -21,7 +21,7 @@ pub struct ProjectProps {
 pub fn project(props: &ProjectProps) -> Html {
     html! {
         <div class="project">
-            <h2 class="project-title"><a target="_blank" href={props.project.link.clone()}>{&props.project.name}</a></h2>
+            <h2 class="project-title"><a target="_blank" href={props.project.link}>{&props.project.name}</a></h2>
             <p class="project-duration">{"Duration: "}{&props.project.duration}</p>
             <p class="project-role">{"Role: "}{&props.project.role}</p>
             <p class="project-description">{&props.project.description}</p>

@@ -52,7 +52,7 @@ fn app() -> Html {
                 if *enable_weirdness{ <Lines /> }
                 <button class="lets-get-weird" onclick={onclick}>
                     if *enable_weirdness { <>{"Stop"}</> } else { <>{"Start"}</> }
-                    {" weirdness"}
+                    {" colourful snake"}
                 </button>
             </div>
         </HashRouter>
