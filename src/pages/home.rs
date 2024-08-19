@@ -43,7 +43,7 @@ pub fn home() -> Html {
                     {"Dospore does not like python. "}
                 </div>
                 <div class="row">
-                    {"Dospore mostly build with React, node and hardhat but am currently improving my Rust -- that is why this website is written in rust :)"}
+                    {"Dospore mostly builds with React, node and foundry but am currently improving his Rust -- that is why this website is written in rust :)"}
                 </div>
                 <div class="row">
                     {"Dospore is passionate about data security, efficient systems, best practices and opensource development. "}
