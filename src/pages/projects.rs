@@ -1,8 +1,11 @@
 use yew::prelude::*;
 
-use crate::components::project::{
-    ProjectItem,
-    Project
+use crate::components::{
+    modal_box::ModalBox,
+    project::{
+        ProjectItem,
+        Project
+    }
 };
 
 #[function_component(Projects)]
@@ -61,10 +64,12 @@ pub fn projects() -> Html {
     ];
 
     html! {
-        <div class="projects">
-            <h1>{"Projects"}</h1>
-            <p>{"// TODO do more stuff / list more projects"}</p>
-            {for projects.into_iter().map(|p| html! { <Project project={p} /> })}
-        </div>
+        <ModalBox>
+            <div class="projects">
+                <h1>{"Projects"}</h1>
+                <p>{"// TODO do more stuff / list more projects"}</p>
+                {for projects.into_iter().map(|p| html! { <Project project={p} /> })}
+            </div>
+        </ModalBox>
     }
 }

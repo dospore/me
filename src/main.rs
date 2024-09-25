@@ -16,8 +16,8 @@ use pages::{
 
 pub mod components;
 use components::{
-    header::Header,
-    lines::Lines
+    header::Header
+    // lines::Lines
 };
 
 
@@ -37,17 +37,20 @@ fn switch(routes: Route) -> Html {
 
 #[function_component(App)]
 fn app() -> Html {
-    let enable_weirdness = use_state(|| false);
+    // let enable_weirdness = use_state(|| false);
 
+    /* 
     let onclick = {
         let weirdness = enable_weirdness.clone();
         Callback::from(move |_| weirdness.set(!(*weirdness)))
     };
+    */
 
     html! {
         <HashRouter>
             <Header />
             <Switch <Route> render={switch} />
+            /* 
             <div class="content">
                 if *enable_weirdness{ <Lines /> }
                 <button class="lets-get-weird" onclick={onclick}>
@@ -55,6 +58,7 @@ fn app() -> Html {
                     {" colourful snake"}
                 </button>
             </div>
+            */
         </HashRouter>
     }
 }

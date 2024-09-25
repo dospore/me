@@ -17,7 +17,9 @@ pub fn header() -> Html {
                 )}
             >
                 <Link <Route> to={Route::Home}>
+                    <button class={classes!("vintage")}>
                     <span class="dim">{"cd"}</span>
+                    </button>
                 </Link<Route>>
             </span>
             <span class="seperator">{"|"}</span>
@@ -28,8 +30,10 @@ pub fn header() -> Html {
                 )}
             >
                 <Link <Route> to={Route::Projects}>
-                    <span class="dim">{"cd "}</span>
-                    {"/projects"}
+                    <button class="vintage">
+                        <span class="dim">{"cd "}</span>
+                        {"/projects"}
+                    </button>
                 </Link<Route>>
             </span>
             <span class="seperator">{"|"}</span>
@@ -40,8 +44,10 @@ pub fn header() -> Html {
                 )}
             >
                 <Link <Route> to={Route::Collection}>
-                    <span class="dim">{"cd "}</span>
-                    {"/collection"}
+                    <button class="vintage">
+                        <span class="dim">{"cd "}</span>
+                        {"/collection"}
+                    </button>
                 </Link<Route>>
             </span>
         </div>
